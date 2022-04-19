@@ -24,25 +24,101 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
+  <style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  /* tr:nth-child(even) {
+    background-color: #dddddd;
+  } */
+  </style>
   </head>
   <body>
     <nav>
-      <button id="homenav">Home</button>
-      <button id="singlenav">Flip one coin</button>
-      <button id="multinav">Flip multiple coins</button>
-      <button id="guessnav">Guess the result</button>
+      <button id="homenav" >Home</button>
+      <button id="singlenav" >Flip a coin</button>
+      <button id="multinav" >Flip multiple coins</button>
+      <button id="guessnav" >Guess the result</button>
     </nav>
-    <div id="home">
-      
-    </div>    
-    <div id="single" class="hidden">
+    <div id="home" class="active" style="border:none">
+      <h1>Welcome to Graham's Coin Flipping Games</h1>
+      <h2>Instructions</h2>
+      <p>Click on a button above to select a game.</p>
+      <p>Availible games:</p>
+      <ul>
+        <li>Flip a single coin</li>
+        <li>Flip multiple coins</li>
+        <li>Guess a coin flip result</li>
+      </ul>
+    </div> 
+
+    <div id="single" class="hidden" style="border:none">
+      <h1>Flip a coin</h1>
+      <button id="flip">Flip</button> 
+      <br>
+      <br>
+      <img src="assets/img/coin.png" id="coin" class="bigcoin">
+      <h2 id="oneFlipResultHeader" hidden="true">Result: <span id="oneFlipResult"></span></h2>
       
     </div>
-    <div id="multi" class="hidden">
+
+    <div id="multi" class="hidden" style="border:none">
+      <h1>Flip multiple coins</h1>
+			<form id="flips">
+				<label for="number">
+					<strong>How many coins?</strong>
+				</label>
+				<input type="number" name="number" id="number">
+				<input type="submit" value="Flip 'em!">
+			</form>
+
+			
+      <div id="flipsResults" class="hidden" style="border:none">
+        <h2>Results</h2>
+        <table id="resultsTable", class="hidden">
+          <thead>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Side</th>
+              <th>Count</th>
+              <th>Coins</th>
+            </tr>
+            <tr>
+              <td>Heads</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Tails</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          
+        </table>
+      </div>
       
     </div>
-    <div id="guess" class="hidden">
-      
+    <div id="guess" class="hidden" style="border:none">
+      <h1>Guess the result of a coin flip</h1>
+      <button id="headsGuess">Guess heads</button> 
+      <button id="tailsGuess">Guess tails</button>
+      <br>
+      <br>
+      <img src="assets/img/coin.png" id="coin2" class="bigcoin">
+      <h2 id="callHeader" hidden="true">Your Call: <span id="call"></span></h2>
+      <h2 id="flipResultHeader" hidden="true">Flip Result: <span id="flipResult"></span></h2> 
+      <h2 id="guessResultHeader" hidden="true">Guess Result: <span id="guessResult"></span></h2>      
     </div>
 	<script src="main.js"></script>
   </body>

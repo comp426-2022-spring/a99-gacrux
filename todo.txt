@@ -1,0 +1,2 @@
+move enpoints to routes
+reset other div when go to home

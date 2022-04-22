@@ -1,7 +1,7 @@
 {
-  "name": "a05",
+  "name": "a99-gacrux",
   "version": "0.5.0",
-  "description": "Coinserver API that also serves a single page HTML/CSS/JS browser-based interface.",
+  "description": "Final project",
   "main": "index.js",
   "scripts": {
     "test": "npx nodemon index.js --port=5000 --debug",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/comp426-2022-spring/a05-johnmar3.git"
+    "url": "git+https://github.com/comp426-2022-spring/a99-gacrux.git"
   },
   "keywords": [
     "coin",
@@ -21,12 +21,12 @@
     "coinserver",
     "API"
   ],
-  "author": "YOU",
+  "author": "@gcaron00",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/comp426-2022-spring/a05-johnmar3/issues"
+    "url": "https://github.com/comp426-2022-spring/a99-gacrux/issues"
   },
-  "homepage": "https://github.com/comp426-2022-spring/a05-johnmar3#readme",
+  "homepage": "https://github.com/comp426-2022-spring/a99-gacrux#readme",
   "dependencies": {
     "better-sqlite3": "^7.5.1",
     "express": "^4.17.3",

@@ -24,7 +24,7 @@ if(row === undefined) {
         `;
     db.exec(sqlInit)
 } else {
-    console.log('User database exists.')
+    console.log('Log database exists.')
 }
 
 module.exports = db

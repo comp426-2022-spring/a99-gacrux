@@ -7,7 +7,8 @@ app.use(express.static('./public'));
 const morgan = require('morgan')
 const fs = require('fs')
 
-const db = require('./src/services/database.js')
+const logdb = require('./src/services/logdatabase.js')
+const userdb = require('./src/services/userdatabase.js')
 const args = require("minimist")(process.argv.slice(2))  
 
 
@@ -58,7 +59,7 @@ app.use( (req, res, next) => {
         referer: req.headers['referer'],
         useragent: req.headers['user-agent']
     }
-    const stmt = db.prepare(`INSERT INTO accesslog (remoteaddr, 
+    const stmt = logdb.prepare(`INSERT INTO accesslog (remoteaddr, 
         remoteuser, time, method, url, protocol, httpversion, secure, 
         status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
     const info = stmt.run(String(logdata.remoteaddr), String(logdata.remoteuser), String(logdata.time), 
@@ -70,7 +71,7 @@ app.use( (req, res, next) => {
 if (debug) {
     app.get("/app/log/access", (req, res) => {	
         try {
-            const stmt = db.prepare('SELECT * FROM accesslog').all()
+            const stmt = logdb.prepare('SELECT * FROM accesslog').all()
             res.status(200).json(stmt)
         } catch {
             console.error(e)
@@ -80,6 +81,35 @@ if (debug) {
         throw new Error('Error test successful.');
     });
 }
+
+app.post("/app/users/login/", (req, res, next) => {	
+    const stmt = userdb.prepare(`SELECT * FROM myUsers WHERE username=? AND password=?`)
+    let row = stmt.get(String(req.body.username), String(req.body.password));
+    if(row === undefined) {
+        res.status(200).json({"status": "invalid", "email": ""})
+    } else {
+        res.status(200).json({"status": "valid", "email": row.email})
+    }
+});
+
+app.post("/app/users/signup/", (req, res, next) => {	
+    const stmt = userdb.prepare(`SELECT * FROM myUsers WHERE username=?`)
+    let userrow = stmt.get(String(req.body.username));
+    const stmt2 = userdb.prepare(`SELECT * FROM myUsers WHERE email=?`)
+    let emailrow = stmt.get(String(req.body.email));
+    var emailstatus = "valid"
+    var userstatus = "valid"
+    console.log(emailrow)
+    if(userrow !== undefined) {
+        emailstatus = "invalid" 
+    } else if(emailrow !== undefined) {
+        userstatus = "invalid"
+    } else {
+        const stmt3 = userdb.prepare(`INSERT INTO myUsers (username, email, password) VALUES (?, ?, ?)`)
+        const info = stmt3.run(String(req.body.username), String(req.body.email), String(req.body.password))
+    }
+    res.status(200).json({"emailstatus": emailstatus, "userstatus": userstatus})
+});
 
 app.get('/app/flip/call/:guess(heads|tails)', (req, res) => {
     res.statusCode = 200;

@@ -43,13 +43,75 @@
   </style>
   </head>
   <body>
-    <nav>
+    <nav id="loginNav" class="active">
+      <button id="loginnav" class="active">Login</button>
+      <button id="signupnav" class="active">Sign Up</button>
+      <button id="accountnav" class="hidden">Account information</button>
+    </nav>
+    <br>
+    <!-- Change below buttons names  -->
+    <nav id="loggedinNav" class="active">
       <button id="homenav" >Home</button>
       <button id="singlenav" >Flip a coin</button>
       <button id="multinav" >Flip multiple coins</button>
       <button id="guessnav" >Guess the result</button>
     </nav>
-    <div id="home" class="active" style="border:none">
+
+    <div id="login" class="hidden">
+      <h1>Login</h1>
+      <form id="loginForm">
+        <label for="text">
+          <strong>Username</strong>
+        </label>
+        <input type="text" name="username" id="username">
+        <label for="text">
+          <strong>Password</strong>
+        </label>
+        <input type="text" name="password" id="password">
+        <input type="submit" value="Submit">
+      </form>
+      <p id="loginResultHeader" class="hidden"></p>
+    </div>
+
+    <div id="signup" class="hidden">
+      <h1>Sign Up</h1>
+      <form id="signupForm">
+        <label for="username">
+          <strong>Username</strong>
+        </label>
+        <input type="text" name="username" id="username">
+        <br>
+        <label for="email">
+          <strong>Email</strong>
+        </label>
+        <input type="text" name="email" id="email">
+        <br>
+        <label for="password">
+          <strong>Password</strong>
+        </label>
+        <input type="text" name="password" id="password">
+        <br>
+        <label for="confirmpassword">
+          <strong>Confirm Password</strong>
+        </label>
+        <input type="text" name="confirmpassword" id="confirmpassword">
+        <br>
+        <input type="submit" value="Submit">
+      </form>
+      <p id="signupResultHeader" class="hidden"></p>
+    </div>
+
+    <div id="account" class="hidden">
+      <h1>User Infomation</h1>
+      <ul>
+        <li>Username: <span id="accountUsername"></span></li>
+        <li>Email: <span id="accountEmail"></span></li>
+      </ul>
+      <button id="signNout" >Sign Out</button>
+      <button id="deleteAccount" >Delete Account</button>
+    </div>
+
+    <div id="home" class="active">
       <h1>Welcome to Graham's Coin Flipping Games</h1>
       <h2>Instructions</h2>
       <p>Click on a button above to select a game.</p>
@@ -61,17 +123,17 @@
       </ul>
     </div> 
 
-    <div id="single" class="hidden" style="border:none">
+    <!-- Edit divs below with public health info -->
+    <div id="single" class="hidden">
       <h1>Flip a coin</h1>
       <button id="flip">Flip</button> 
       <br>
       <br>
       <img src="assets/img/coin.png" id="coin" class="bigcoin">
-      <h2 id="oneFlipResultHeader" hidden="true">Result: <span id="oneFlipResult"></span></h2>
-      
+      <h2 id="oneFlipResultHeader" class="hidden">Result: <span id="oneFlipResult"></span></h2>
     </div>
 
-    <div id="multi" class="hidden" style="border:none">
+    <div id="multi" class="hidden">
       <h1>Flip multiple coins</h1>
 			<form id="flips">
 				<label for="number">
@@ -82,7 +144,7 @@
 			</form>
 
 			
-      <div id="flipsResults" class="hidden" style="border:none">
+      <div id="flipsResults" class="hidden">
         <h2>Results</h2>
         <table id="resultsTable", class="hidden">
           <thead>
@@ -109,16 +171,16 @@
       </div>
       
     </div>
-    <div id="guess" class="hidden" style="border:none">
+    <div id="guess" class="hidden">
       <h1>Guess the result of a coin flip</h1>
       <button id="headsGuess">Guess heads</button> 
       <button id="tailsGuess">Guess tails</button>
       <br>
       <br>
       <img src="assets/img/coin.png" id="coin2" class="bigcoin">
-      <h2 id="callHeader" hidden="true">Your Call: <span id="call"></span></h2>
-      <h2 id="flipResultHeader" hidden="true">Flip Result: <span id="flipResult"></span></h2> 
-      <h2 id="guessResultHeader" hidden="true">Guess Result: <span id="guessResult"></span></h2>      
+      <h2 id="callHeader" class="hidden">Your Call: <span id="call"></span></h2>
+      <h2 id="flipResultHeader" class="hidden">Flip Result: <span id="flipResult"></span></h2> 
+      <h2 id="guessResultHeader" class="hidden">Guess Result: <span id="guessResult"></span></h2>      
     </div>
 	<script src="main.js"></script>
   </body>

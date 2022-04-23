@@ -52,19 +52,17 @@
     <!-- Change below buttons names  -->
     <nav id="loggedinNav" class="active">
       <button id="homenav" >Home</button>
-      <button id="singlenav" >Flip a coin</button>
-      <button id="multinav" >Flip multiple coins</button>
-      <button id="guessnav" >Guess the result</button>
+      <button id="addnav" >Personal Health Info</button>
     </nav>
 
     <div id="login" class="hidden">
       <h1>Login</h1>
       <form id="loginForm">
-        <label for="text">
+        <label for="username">
           <strong>Username</strong>
         </label>
         <input type="text" name="username" id="username">
-        <label for="text">
+        <label for="password">
           <strong>Password</strong>
         </label>
         <input type="text" name="password" id="password">
@@ -107,8 +105,9 @@
         <li>Username: <span id="accountUsername"></span></li>
         <li>Email: <span id="accountEmail"></span></li>
       </ul>
-      <button id="signNout" >Sign Out</button>
-      <button id="deleteAccount" >Delete Account</button>
+      <button id="signOut" class="active">Sign Out</button>
+      <button id="deleteAccount" class="active">Delete Account</button>
+
     </div>
 
     <div id="home" class="active">
@@ -124,64 +123,43 @@
     </div> 
 
     <!-- Edit divs below with public health info -->
-    <div id="single" class="hidden">
-      <h1>Flip a coin</h1>
-      <button id="flip">Flip</button> 
-      <br>
-      <br>
-      <img src="assets/img/coin.png" id="coin" class="bigcoin">
-      <h2 id="oneFlipResultHeader" class="hidden">Result: <span id="oneFlipResult"></span></h2>
+    <div id="addHealth" class="hidden">
+      <h1>Add or update Your personal health information below.</h1>
+      <form id="addForm" class="hidden">
+        <label for="height">
+          <strong>Height</strong>
+        </label>
+        <input type="text" name="height" id="height">
+        <br>
+        <label for="weight">
+          <strong>Weight</strong>
+        </label>
+        <input type="text" name="weight" id="weight">
+        <br>
+        <label for="bloodPressure">
+          <strong>Blood Pressure</strong>
+        </label>
+        <input type="text" name="bloodPressure" id="bloodPressure">
+        <br>
+        <label for="bfi">
+          <strong>BFI</strong>
+        </label>
+        <input type="text" name="bfi" id="bfi">
+        <input type="submit" value="Submit">
+      </form>
+      <p id="addResultHeader" class="active">Login or sign up to add and see health info.</p>
+
+      <h2 id="seeHeader" class="hidden">Your Health Info:</h2>
+      <ul id="seelist" class="hidden">
+        <li>Height: <span id="heightlist"></span></li>
+        <li>Weight: <span id="weightlist"></span></li>
+        <li>Blood Pressure: <span id="bplist"></span></li>
+        <li>BFI: <span id="bfilist"></span></li>
+      </ul> 
+      <p id="seeResultHeader" class="hidden"></p>   
     </div>
 
-    <div id="multi" class="hidden">
-      <h1>Flip multiple coins</h1>
-			<form id="flips">
-				<label for="number">
-					<strong>How many coins?</strong>
-				</label>
-				<input type="number" name="number" id="number">
-				<input type="submit" value="Flip 'em!">
-			</form>
 
-			
-      <div id="flipsResults" class="hidden">
-        <h2>Results</h2>
-        <table id="resultsTable", class="hidden">
-          <thead>
-          </thead>
-          <tbody>
-            <tr>
-              <th>Side</th>
-              <th>Count</th>
-              <th>Coins</th>
-            </tr>
-            <tr>
-              <td>Heads</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>Tails</td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-          
-        </table>
-      </div>
-      
-    </div>
-    <div id="guess" class="hidden">
-      <h1>Guess the result of a coin flip</h1>
-      <button id="headsGuess">Guess heads</button> 
-      <button id="tailsGuess">Guess tails</button>
-      <br>
-      <br>
-      <img src="assets/img/coin.png" id="coin2" class="bigcoin">
-      <h2 id="callHeader" class="hidden">Your Call: <span id="call"></span></h2>
-      <h2 id="flipResultHeader" class="hidden">Flip Result: <span id="flipResult"></span></h2> 
-      <h2 id="guessResultHeader" class="hidden">Guess Result: <span id="guessResult"></span></h2>      
-    </div>
 	<script src="main.js"></script>
   </body>
 </html>

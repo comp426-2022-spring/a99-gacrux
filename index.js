@@ -9,6 +9,7 @@ const fs = require('fs')
 
 const logdb = require('./src/services/logdatabase.js')
 const userdb = require('./src/services/userdatabase.js')
+const healthdb = require('./src/services/healthdatabase.js')
 const args = require("minimist")(process.argv.slice(2))  
 
 
@@ -82,6 +83,34 @@ if (debug) {
     });
 }
 
+app.post("/app/users/addhealth/", (req, res, next) => {	
+    const stmt = healthdb.prepare(`SELECT * FROM health WHERE username=?`)
+    let row = stmt.get(String(req.body.username));
+    console.log(req.body)
+    if(row === undefined) {
+        const stmt2 = healthdb.prepare(`INSERT INTO health (username, height, weight, bloodPressure, bfi) VALUES (?, ?, ?, ?, ?)`)
+        const info = stmt2.run(String(req.body.username), String(req.body.height), String(req.body.weight), String(req.body.bloodPressure), String(req.body.bfi))
+        res.status(200).json({"status": "Health info added."})
+    } else {
+        const stmt3 = healthdb.prepare(`UPDATE health SET height=?, weight=?, bloodPressure=?, bfi=? WHERE username=?;`)
+        const info = stmt3.run(String(req.body.height), String(req.body.weight), String(req.body.bloodPressure), String(req.body.bfi), String(req.body.username))
+        res.status(200).json({"status": "Health info updated successfully."})
+    }
+});
+
+app.post("/app/users/seehealth/", (req, res, next) => {	
+    const stmt = healthdb.prepare(`SELECT * FROM health WHERE username=?`)
+    let row = stmt.get(String(req.body.username));
+    console.log(row)
+    if(row === undefined) {
+        res.status(200).json({"status": "invalid"})
+    } else {
+        res.status(200).json({"status": "valid", "height": row.height, "weight": row.weight, "bloodPressure": row.bloodPressure, "bfi": row.bfi })
+    }
+});
+
+
+
 app.post("/app/users/login/", (req, res, next) => {	
     const stmt = userdb.prepare(`SELECT * FROM myUsers WHERE username=? AND password=?`)
     let row = stmt.get(String(req.body.username), String(req.body.password));
@@ -92,6 +121,7 @@ app.post("/app/users/login/", (req, res, next) => {
     }
 });
 
+
 app.post("/app/users/signup/", (req, res, next) => {	
     const stmt = userdb.prepare(`SELECT * FROM myUsers WHERE username=?`)
     let userrow = stmt.get(String(req.body.username));
@@ -99,7 +129,6 @@ app.post("/app/users/signup/", (req, res, next) => {
     let emailrow = stmt.get(String(req.body.email));
     var emailstatus = "valid"
     var userstatus = "valid"
-    console.log(emailrow)
     if(userrow !== undefined) {
         emailstatus = "invalid" 
     } else if(emailrow !== undefined) {
@@ -111,24 +140,17 @@ app.post("/app/users/signup/", (req, res, next) => {
     res.status(200).json({"emailstatus": emailstatus, "userstatus": userstatus})
 });
 
-app.get('/app/flip/call/:guess(heads|tails)', (req, res) => {
-    res.statusCode = 200;
-    res.statusMessage = "OK"
-    res.json(flipACoin(req.params.guess))
+app.post("/app/users/delete/", (req, res, next) => {	
+    const stmt = userdb.prepare(`DELETE FROM myUsers WHERE username=?;`)
+    let row = stmt.run(String(req.body.username));
+    res.statusMessage = 'OK';
+    res.writeHead( res.statusCode, { 'Content-Type' : 'text/plain' });
+    res.end(res.statusCode+ ' ' +res.statusMessage)
 });
+
 
 app.get('/app/flip/', (req, res) => {
     res.status(200).json({"flip": coinFlip()})
-})
-
-app.get('/app/flips/:number', (req, res) => {
-    const result = coinFlips(parseInt(req.params.number))
-    const count = countFlips(result)
-    res.status(200).json({"raw": result, "summary": count})
-})
-
-app.get('/app/flip/call/:call', (req, res) => {
-    res.status(200).json(flipACoin(req.params.call))
 })
 
 app.post('/app/flips/coins/', (req, res, next) => {

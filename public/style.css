@@ -8,9 +8,21 @@ h2.hidden {
 nav.hidden {
   display: none
 }
+
 button.hidden {
   display: none
 }
+p.hidden {
+  display: none
+}
+
+form.hidden {
+  display: none
+}
+ul.hidden {
+  display: none
+}
+
 
 /* div.active {
   border: 5px solid red;

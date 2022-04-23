@@ -1,23 +1,8 @@
-// Focus div based on nav button click
-
-// Flip one coin and show coin image to match result when button clicked
-
-// Flip multiple coins and show coin images in table as well as summary results
-// Enter number and press button to activate coin flip series
-
-// Guess a flip by clicking either heads or tails button
-
 const hnav = document.getElementById("homenav")
 hnav.addEventListener("click", function() { focusDiv("home"); })
 
-const snav = document.getElementById("singlenav")
-snav.addEventListener("click", function() { focusDiv("single"); })
-
-const mnav = document.getElementById("multinav")
-mnav.addEventListener("click", function() { focusDiv("multi"); })
-
-const gnav = document.getElementById("guessnav")
-gnav.addEventListener("click", function() { focusDiv("guess"); })
+const snav = document.getElementById("addnav")
+snav.addEventListener("click", function() { focusDiv("addHealth"); })
 
 const linav = document.getElementById("loginnav")
 linav.addEventListener("click", function() { focusDiv("login"); })
@@ -25,6 +10,8 @@ linav.addEventListener("click", function() { focusDiv("login"); })
 const sunav = document.getElementById("signupnav")
 sunav.addEventListener("click", function() { focusDiv("signup"); })
 
+const anav = document.getElementById("accountnav")
+anav.addEventListener("click", function() { focusDiv("account"); })
 
 function focusDiv(id) {
     var actives = document.getElementsByTagName("div")
@@ -32,11 +19,13 @@ function focusDiv(id) {
     var divs = document.getElementsByClassName("active");
     var divsArr = Array.from(divs)
     activeDivsArr = activesArr.filter(value => divsArr.includes(value));
-    //var activeDivsArr = Array.from(activeDivs)
     activeDivsArr.forEach(function (currentdiv) {
         currentdiv.setAttribute("class", "hidden");
     })
+    
     document.getElementById(id).setAttribute("class", "active");
+    // document.getElementsById("loginForm").reset();
+    
 }
 
 const login = document.getElementById("loginForm")
@@ -73,6 +62,12 @@ async function sendLogin(event) {
             document.getElementById("accountUsername").innerHTML = plainFormData.username
             document.getElementById("accountEmail").innerHTML = result.email
             document.getElementById('loginResultHeader').setAttribute("class", "hidden")
+            document.getElementById('loginResultHeader').innerHTML = ""
+            document.getElementById('signupResultHeader').setAttribute("class", "hidden");
+            document.getElementById('signupResultHeader').innerHTML = ""
+            document.getElementById("addForm").setAttribute("class", "active");
+            document.getElementById('addResultHeader').setAttribute("class", "hidden");
+            document.getElementById('addResultHeader').innerHTML = ""
         }
     } catch (error) {
         console.log(error);
@@ -122,6 +117,13 @@ async function sendSignup(event) {
                 document.getElementById("accountUsername").innerHTML = plainFormData.username
                 document.getElementById("accountEmail").innerHTML = plainFormData.email
                 document.getElementById('signupResultHeader').setAttribute("class", "hidden");
+                document.getElementById('signupResultHeader').innerHTML = ""
+                document.getElementById('loginResultHeader').setAttribute("class", "hidden")
+                document.getElementById('loginResultHeader').innerHTML = ""
+                document.getElementById("addForm").setAttribute("class", "active");
+                document.getElementById('addResultHeader').setAttribute("class", "hidden");
+
+
             }
         }
         
@@ -130,39 +132,76 @@ async function sendSignup(event) {
     }
 }
 
-// sign up should add to userdb and add account details to account div, make sure username & email not in
-// show account details should trigger when click account button
-// delete account should react to button under account
-// sign out button under account
 
+const signout = document.getElementById("signOut")
+signout.addEventListener("click", function() { signOut(); })
 
-
-
-
-
-
-
-const flip = document.getElementById("flip")
-flip.addEventListener("click", flipCoin)
-
-async function flipCoin() {
-    const response = await fetch(window.location.origin + "/app/flip/")
-    const result = await response.json();
-    console.log(result);
-    document.getElementById("coin").setAttribute("src", "assets/img/" + result.flip + ".png");
-    document.getElementById("oneFlipResult").innerHTML = result.flip;
-    document.getElementById("oneFlipResultHeader").setAttribute("class", "active");
+function signOut() {
+    document.getElementById("accountnav").setAttribute("class", "hidden");
+    document.getElementById("account").setAttribute("class", "hidden");
+    document.getElementById("accountUsername").innerHTML = ""
+    document.getElementById("accountEmail").innerHTML = ""
+    document.getElementById("signupnav").setAttribute("class", "active");
+    document.getElementById("loginnav").setAttribute("class", "active");
+    document.getElementById("home").setAttribute("class", "active");
+    document.getElementById("addForm").setAttribute("class", "hidden");
+    document.getElementById('addResultHeader').setAttribute("class", "active");
+    document.getElementById('addResultHeader').innerHTML = "Login or sign up to add health info."
+    document.getElementById("seeResultHeader").setAttribute("class", "hidden")
+    document.getElementById("seelist").setAttribute("class", "hidden")
+    document.getElementById("seeHeader").setAttribute("class", "hidden")
 }
 
-const flips = document.getElementById("flips")
-flips.addEventListener("submit", flipCoins)
+const deleteAcc = document.getElementById("deleteAccount")
+deleteAcc.addEventListener("click", function() { deleteAccount(); })
 
-async function flipCoins(event) {
+async function deleteAccount() {
+    try {
+        var username = document.getElementById("accountUsername").innerText
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({"username": username})
+        };
+        console.log(username)
+        const response = await fetch(window.location.origin+"/app/users/delete/", options);
+
+        //const result = await response.json()
+
+        document.getElementById("accountnav").setAttribute("class", "hidden");
+        document.getElementById("account").setAttribute("class", "hidden");
+        document.getElementById("accountUsername").innerHTML = ""
+        document.getElementById("accountEmail").innerHTML = ""
+        document.getElementById("signupnav").setAttribute("class", "active");
+        document.getElementById("loginnav").setAttribute("class", "active");
+        document.getElementById("home").setAttribute("class", "active");
+        document.getElementById("addForm").setAttribute("class", "active");
+        document.getElementById("addForm").setAttribute("class", "hidden");
+        document.getElementById('addResultHeader').setAttribute("class", "active");
+        document.getElementById('addResultHeader').innerHTML = "Login or sign up to add health info."
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+// delete account should react to button under account
+
+
+const addlisten = document.getElementById("addForm")
+addlisten.addEventListener("submit", addHealth)
+
+async function addHealth(event) {
     event.preventDefault();
     const formEvent = event.currentTarget
     try {
         const formData = new FormData(formEvent);
         const plainFormData = Object.fromEntries(formData.entries());
+        plainFormData.username = document.getElementById("accountUsername").innerText;
         const formDataJson = JSON.stringify(plainFormData);
         const options = {
             method: "POST",
@@ -170,86 +209,52 @@ async function flipCoins(event) {
                 "Content-Type": "application/json",
                 Accept: "application/json"
             },
-            body: formDataJson
+            body: formDataJson, 
         };
-        const response = await fetch(window.location.origin+"/app/flips/coins/", options);
+        const response = await fetch(window.location.origin+"/app/users/addhealth/", options);
         const result = await response.json()
 
-        document.getElementById("flipsResults").setAttribute("class", "active");
-
-        var resultsTable = document.getElementById('resultsTable');
-        var tbodyRef = resultsTable.getElementsByTagName('tbody')[0];
-
-        
-        var headRow = tbodyRef.getElementsByTagName('tr')[1];
-        headRow.getElementsByTagName('td')[1].innerHTML = result.summary.heads
-        headRow.getElementsByTagName('td')[2].innerHTML = '';
-
-        for(let i = 0; i<result.summary.heads; i++){
-            var img = document.createElement("img");
-            img.src = "assets/img/" + "heads" + ".png";
-            img.class="bigcoin"
-            img.style='width:'+String(100/result.summary.heads)+'%; white-space: pre-line;'
-            headRow.getElementsByTagName('td')[2].append(img);
-        }
-
-        var tailRow = tbodyRef.getElementsByTagName('tr')[2];
-        tailRow.getElementsByTagName('td')[1].innerHTML = result.summary.tails
-        tailRow.getElementsByTagName('td')[2].innerHTML = '';
-
-        for(let i = 0; i<result.summary.tails; i++){
-            var img = document.createElement("img");
-            img.src = "assets/img/" + "tails" + ".png";
-            img.class="bigcoin"
-            img.style='width:'+String(100/result.summary.tails)+'%; white-space: pre-line;'
-            tailRow.getElementsByTagName('td')[2].append(img);
-        }
-        
-        
-
-        
+        document.getElementById("addResultHeader").setAttribute("class", "active");
+        document.getElementById("addResultHeader").innerHTML = result.status
     } catch (error) {
         console.log(error);
     }
 }
 
 
-const headsGuess = document.getElementById("headsGuess")
-headsGuess.addEventListener("click", function() { guessFlip("heads"); })
+const seelisten1 = document.getElementById("addnav")
+seelisten1.addEventListener("click", seeHealth)
 
-const tailsGuess = document.getElementById("tailsGuess")
-tailsGuess.addEventListener("click", function() { guessFlip("tails"); })
+const seelisten2 = document.getElementById("addForm")
+seelisten2.addEventListener("submit", seeHealth)
 
-async function guessFlip(call) {
-    try {
+async function seeHealth() {
+    if (document.getElementById("addForm").className === "active") {
+        
+        const username = document.getElementById("accountUsername").innerText
         const options = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json"
             },
-            body: JSON.stringify({"call": call})
+            body: JSON.stringify({"username": username})
         };
-        const response = await fetch(window.location.origin+"/app/flip/call/", options);
-        console.log(response)
-        console.log(options)
-        const result = await response.json()
-
-        
-    
-        document.getElementById("coin2").setAttribute("src", "assets/img/" + result.flip + ".png");  
-
-        document.getElementById("call").innerHTML = call
-        document.getElementById("flipResult").innerHTML = result.flip
-        document.getElementById("guessResult").innerHTML = "You " + result.result;
-   
-        
-        document.getElementById("guessResultHeader").setAttribute("class", "active");
-        document.getElementById("flipResultHeader").setAttribute("class", "active");
-        document.getElementById("callHeader").setAttribute("class", "active");
-        
-    } catch (error) {
-        console.log(error);
+        const response = await fetch(window.location.origin + "/app/users/seehealth/", options)
+        const result = await response.json();
+        document.getElementById("seeHeader").setAttribute("class", "active")
+        if (result.status === "invalid"){
+            document.getElementById("seeResultHeader").innerHTML = "There is no data assosiated with your username. Add info above."
+            document.getElementById("seeResultHeader").setAttribute("class", "active")
+        } else {
+            document.getElementById("heightlist").innerHTML = result.height
+            document.getElementById("weightlist").innerHTML = result.weight
+            document.getElementById("bplist").innerHTML = result.bloodPressure
+            document.getElementById("bfilist").innerHTML = result.bfi
+            document.getElementById("seelist").setAttribute("class", "active")
+            document.getElementById("seeResultHeader").setAttribute("class", "hidden")
+        }
     }
+
 }
 

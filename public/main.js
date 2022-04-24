@@ -247,10 +247,16 @@ async function seeHealth() {
             document.getElementById("seeResultHeader").innerHTML = "There is no data assosiated with your username. Add info above."
             document.getElementById("seeResultHeader").setAttribute("class", "active")
         } else {
+            document.getElementById("agelist").innerHTML = result.age
             document.getElementById("heightlist").innerHTML = result.height
             document.getElementById("weightlist").innerHTML = result.weight
             document.getElementById("bplist").innerHTML = result.bloodPressure
             document.getElementById("bfilist").innerHTML = result.bfi
+            document.getElementById("moodlist").innerHTML = result.mood
+            document.getElementById("stresslist").innerHTML = result.stress
+            document.getElementById("exerciselist").innerHTML = result.exercise
+            document.getElementById("sleeplist").innerHTML = result.sleep
+            document.getElementById("goalslist").innerHTML = result.goals
             document.getElementById("seelist").setAttribute("class", "active")
             document.getElementById("seeResultHeader").setAttribute("class", "hidden")
         }

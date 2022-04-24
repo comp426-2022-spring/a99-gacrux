@@ -88,11 +88,11 @@ app.post("/app/users/addhealth/", (req, res, next) => {
     let row = stmt.get(String(req.body.username));
     console.log(req.body)
     if(row === undefined) {
-        const stmt2 = healthdb.prepare(`INSERT INTO health (username, height, weight, bloodPressure, bfi) VALUES (?, ?, ?, ?, ?)`)
-        const info = stmt2.run(String(req.body.username), String(req.body.height), String(req.body.weight), String(req.body.bloodPressure), String(req.body.bfi))
+        const stmt2 = healthdb.prepare(`INSERT INTO health (username, age, height, weight, bloodPressure, bfi, mood, stress, exercise, sleep, goals) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+        const info = stmt2.run(String(req.body.username), String(req.body.age), String(req.body.height), String(req.body.weight), String(req.body.bloodPressure), String(req.body.bfi), String(req.body.mood), String(req.body.stress), String(req.body.exercise), String(req.body.sleep), String(req.body.goals))
         res.status(200).json({"status": "Health info added."})
     } else {
-        const stmt3 = healthdb.prepare(`UPDATE health SET height=?, weight=?, bloodPressure=?, bfi=? WHERE username=?;`)
+        const stmt3 = healthdb.prepare(`UPDATE health SET age=?, height=?, weight=?, bloodPressure=?, bfi=?, mood=?, stress=?, exercise=?, sleep=?, goals=?, WHERE username=?;`)
         const info = stmt3.run(String(req.body.height), String(req.body.weight), String(req.body.bloodPressure), String(req.body.bfi), String(req.body.username))
         res.status(200).json({"status": "Health info updated successfully."})
     }
@@ -105,7 +105,7 @@ app.post("/app/users/seehealth/", (req, res, next) => {
     if(row === undefined) {
         res.status(200).json({"status": "invalid"})
     } else {
-        res.status(200).json({"status": "valid", "height": row.height, "weight": row.weight, "bloodPressure": row.bloodPressure, "bfi": row.bfi })
+        res.status(200).json({"status": "valid", "age": row.age, "height": row.height, "weight": row.weight, "bloodPressure": row.bloodPressure, "bfi": row.bfi, "mood": row.mood, "stress": row.stress, "exercise": row.exercise, "sleep": row.sleep, "goals": row.goals })
     }
 });
 

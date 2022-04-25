@@ -15,7 +15,7 @@ if(row === undefined) {
             height INTEGER,
             weight INTEGER,
             bloodPressure FLOAT,
-            bfi FLOAT
+            bfi FLOAT,
             mood TEXT,
             stress INTEGER,
             exercise INTEGER,

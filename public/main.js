@@ -13,6 +13,9 @@ sunav.addEventListener("click", function() { focusDiv("signup"); })
 const anav = document.getElementById("accountnav")
 anav.addEventListener("click", function() { focusDiv("account"); })
 
+const rnav = document.getElementById("resourcenav")
+rnav.addEventListener("click", function() { focusDiv("resources"); })
+
 function focusDiv(id) {
     var actives = document.getElementsByTagName("div")
     var activesArr = Array.from(actives)
@@ -263,4 +266,12 @@ async function seeHealth() {
     }
 
 }
+
+/*
+var button = document.getElementById("resourcesPage");
+
+button.addEventListener("click", function(){
+    document.getElementById("seeResources").className === "active"
+    fetch(window.location.origin + "/app/users/seeResources/", options)
+});*/
 

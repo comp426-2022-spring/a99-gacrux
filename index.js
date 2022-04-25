@@ -110,7 +110,6 @@ app.post("/app/users/seehealth/", (req, res, next) => {
 });
 
 
-
 app.post("/app/users/login/", (req, res, next) => {	
     const stmt = userdb.prepare(`SELECT * FROM myUsers WHERE username=? AND password=?`)
     let row = stmt.get(String(req.body.username), String(req.body.password));

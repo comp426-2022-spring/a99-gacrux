@@ -23,15 +23,84 @@ ul.hidden {
   display: none
 }
 
+h1 {
+  text-align: center;
+}
+div {
+  text-align: center;
+}
+li {
+  text-align: left;
+}
+body {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin-left: 200px;
+  margin-right: 200px;
+  background-color: aliceblue;
+}
+
 
 /* div.active {
   border: 5px solid red;
 } */
 
-img.bigcoin {
-  width: 50px;
+
+/*
+header tab
+*/
+.header {
+  background-color: aquamarine;
+  text-align: center;
+  padding: 20px;
+}
+.top_tab {
+  text-align: right;
+  background-color: beige;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 0;
 }
 
-img.smallcoin {
-  width: 50px;
+.bottom_tab {
+  text-align: center;
+  background-color: beige;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  margin-left: 300px;
+  margin-right: 300px;
 }
+
+
+.top_tab button {
+  background-color: inherit;
+  float: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+.top_tab button:hover {
+  background-color: bisque;
+}
+
+.bottom_tab button {
+  background-color: inherit;
+  float: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+.bottom_tab button:hover {
+  background-color: bisque;
+}
+
+.bottom_tab button.active {
+  background-color: bisque;
+}
+

@@ -105,7 +105,7 @@ app.post("/app/users/seehealth/", (req, res, next) => {
     if(row === undefined) {
         res.status(200).json({"status": "invalid"})
     } else {
-        res.status(200).json({"status": "valid", "age": row.age, "height": row.height, "weight": row.weight, "bloodPressure": row.bloodPressure, "bfi": row.bfi, "mood": row.mood, "stress": row.stress, "exercise": row.exercise, "sleep": row.sleep, "goals": row.goals })
+        res.status(200).json({"status":"valid", "age": row.age, "height": row.height, "weight": row.weight, "bloodPressure": row.bloodPressure, "bfi": row.bfi, "mood": row.mood, "stress": row.stress, "exercise": row.exercise, "sleep": row.sleep, "goals": row.goals })
     }
 });
 

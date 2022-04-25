@@ -11,12 +11,17 @@ if(row === undefined) {
         CREATE TABLE health ( 
             id INTEGER PRIMARY KEY,
             username TEXT,
+            age INTEGER,
             height INTEGER,
             weight INTEGER,
             bloodPressure FLOAT,
             bfi FLOAT
+            mood TEXT,
+            stress INTEGER,
+            exercise INTEGER,
+            sleep INTEGER,
+            goals TEXT
             );
-
         `;
     db2.exec(sqlInit)
 } else {

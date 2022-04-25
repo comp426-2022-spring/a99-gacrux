@@ -1,29 +1,11 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=7632863&assignment_repo_type=AssignmentRepo)
-# a05 Human Interface
+# Health Tracker Description
 
-In this assignment, you will build an HTML human interface for your API. You will also document your API endpoints and consider package structure.
+This package allows you to track your mental and physical health, and provides some resources that may help in imporivng your health. 
 
-## DO NOT CLONE THIS REPOSITORY DIRECTLY
+1. Tracker - Input and/or update health data. 
+2. Resources - View resources that may help imporive your health! 
 
-Use the GitHub classroom link instead: https://classroom.github.com/a/PUVGxeMe
-
-If you clone this repo directly, it will not be added to the organization as an individual repo associated with your account and you will not be able to push to it.
-
-## Instructions
-
-Full instructions for this assignment are available at: https://comp426.johndmart.in/a/05/
-
-<!-- DELETE EVERYTHING ABOVE THIS LINE -->
-
-# Coinserver Description
-
-This package exposes endpoints and provides a web interface to emulate random chance coin flip events in the following ways:
-
-1. Flip one coin - returns result of a coin flip
-2. Flip many coins - returns the results of many coin flips with a summary
-3. Guess a coin flip and - returns the result of a flip and guess match
-
-# Coinserver Installation
+# Health Tracker Installation
 
 Run `npm install` inside the package root directory.
 

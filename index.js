@@ -38,7 +38,7 @@ if (help === true) {
 }
 
 if(log === "true"){
-    const WRITESTREAM  = fs.createWriteStream('./log/access.log', { flags: 'a' })
+    const WRITESTREAM  = fs.createWriteStream('access.log', { flags: 'a' })
     app.use(morgan('combined', { stream: WRITESTREAM }))
 }
 

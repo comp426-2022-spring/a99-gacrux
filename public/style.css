@@ -104,3 +104,10 @@ header tab
   background-color: bisque;
 }
 
+/*
+line spacing
+*/
+
+.small_line {
+  line-height: 0.3;
+}

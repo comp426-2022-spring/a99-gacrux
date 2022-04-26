@@ -7,9 +7,9 @@ app.use(express.static('./public'));
 const morgan = require('morgan')
 const fs = require('fs')
 
-const logdb = require('./src/services/logdatabase.js')
-const userdb = require('./src/services/userdatabase.js')
-const healthdb = require('./src/services/healthdatabase.js')
+//const logdb = require('./src/services/logdatabase.js')
+const db = require('./src/services/userdatabase.js')
+//const healthdb = require('./src/services/healthdatabase.js')
 const args = require("minimist")(process.argv.slice(2))  
 
 
@@ -60,7 +60,7 @@ app.use( (req, res, next) => {
         referer: req.headers['referer'],
         useragent: req.headers['user-agent']
     }
-    const stmt = logdb.prepare(`INSERT INTO accesslog (remoteaddr, 
+    const stmt = db.prepare(`INSERT INTO accesslog (remoteaddr, 
         remoteuser, time, method, url, protocol, httpversion, secure, 
         status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
     const info = stmt.run(String(logdata.remoteaddr), String(logdata.remoteuser), String(logdata.time), 
@@ -72,7 +72,7 @@ app.use( (req, res, next) => {
 if (debug) {
     app.get("/app/log/access", (req, res) => {	
         try {
-            const stmt = logdb.prepare('SELECT * FROM accesslog').all()
+            const stmt = db.prepare('SELECT * FROM accesslog').all()
             res.status(200).json(stmt)
         } catch {
             console.error(e)
@@ -84,22 +84,22 @@ if (debug) {
 }
 
 app.post("/app/users/addhealth/", (req, res, next) => {	
-    const stmt = healthdb.prepare(`SELECT * FROM health WHERE username=?`)
+    const stmt = db.prepare(`SELECT * FROM health WHERE username=?`)
     let row = stmt.get(String(req.body.username));
     console.log(req.body)
     if(row === undefined) {
-        const stmt2 = healthdb.prepare(`INSERT INTO health (username, age, height, weight, bloodPressure, bfi, mood, stress, exercise, sleep, goals) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+        const stmt2 = db.prepare(`INSERT INTO health (username, age, height, weight, bloodPressure, bfi, mood, stress, exercise, sleep, goals) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
         const info = stmt2.run(String(req.body.username), String(req.body.age), String(req.body.height), String(req.body.weight), String(req.body.bloodPressure), String(req.body.bfi), String(req.body.mood), String(req.body.stress), String(req.body.exercise), String(req.body.sleep), String(req.body.goals))
         res.status(200).json({"status": "Health info added."})
     } else {
-        const stmt3 = healthdb.prepare(`UPDATE health SET age=?, height=?, weight=?, bloodPressure=?, bfi=?, mood=?, stress=?, exercise=?, sleep=?, goals=?, WHERE username=?;`)
-        const info = stmt3.run(String(req.body.height), String(req.body.weight), String(req.body.bloodPressure), String(req.body.bfi), String(req.body.username))
+        const stmt3 = db.prepare(`UPDATE health SET age=?, height=?, weight=?, bloodPressure=?, bfi=?, mood=?, stress=?, exercise=?, sleep=?, goals=? WHERE username=?;`)
+        const info = stmt3.run(String(req.body.age), String(req.body.height), String(req.body.weight), String(req.body.bloodPressure), String(req.body.bfi), String(req.body.mood), String(req.body.stress), String(req.body.exercise), String(req.body.sleep), String(req.body.goals), String(req.body.username))
         res.status(200).json({"status": "Health info updated successfully."})
     }
 });
 
 app.post("/app/users/seehealth/", (req, res, next) => {	
-    const stmt = healthdb.prepare(`SELECT * FROM health WHERE username=?`)
+    const stmt = db.prepare(`SELECT * FROM health WHERE username=?`)
     let row = stmt.get(String(req.body.username));
     console.log(row)
     if(row === undefined) {
@@ -111,7 +111,7 @@ app.post("/app/users/seehealth/", (req, res, next) => {
 
 
 app.post("/app/users/login/", (req, res, next) => {	
-    const stmt = userdb.prepare(`SELECT * FROM myUsers WHERE username=? AND password=?`)
+    const stmt = db.prepare(`SELECT * FROM myUsers WHERE username=? AND password=?`)
     let row = stmt.get(String(req.body.username), String(req.body.password));
     if(row === undefined) {
         res.status(200).json({"status": "invalid", "email": ""})
@@ -122,9 +122,9 @@ app.post("/app/users/login/", (req, res, next) => {
 
 
 app.post("/app/users/signup/", (req, res, next) => {	
-    const stmt = userdb.prepare(`SELECT * FROM myUsers WHERE username=?`)
+    const stmt = db.prepare(`SELECT * FROM myUsers WHERE username=?`)
     let userrow = stmt.get(String(req.body.username));
-    const stmt2 = userdb.prepare(`SELECT * FROM myUsers WHERE email=?`)
+    const stmt2 = db.prepare(`SELECT * FROM myUsers WHERE email=?`)
     let emailrow = stmt.get(String(req.body.email));
     var emailstatus = "valid"
     var userstatus = "valid"
@@ -133,15 +133,17 @@ app.post("/app/users/signup/", (req, res, next) => {
     } else if(emailrow !== undefined) {
         userstatus = "invalid"
     } else {
-        const stmt3 = userdb.prepare(`INSERT INTO myUsers (username, email, password) VALUES (?, ?, ?)`)
+        const stmt3 = db.prepare(`INSERT INTO myUsers (username, email, password) VALUES (?, ?, ?)`)
         const info = stmt3.run(String(req.body.username), String(req.body.email), String(req.body.password))
     }
     res.status(200).json({"emailstatus": emailstatus, "userstatus": userstatus})
 });
 
 app.post("/app/users/delete/", (req, res, next) => {	
-    const stmt = userdb.prepare(`DELETE FROM myUsers WHERE username=?;`)
+    const stmt = db.prepare(`DELETE FROM health WHERE username=?;`)
+    const stmt2 = db.prepare(`DELETE FROM myUsers WHERE username=?;`)
     let row = stmt.run(String(req.body.username));
+    let row2 = stmt2.run(String(req.body.username));
     res.statusMessage = 'OK';
     res.writeHead( res.statusCode, { 'Content-Type' : 'text/plain' });
     res.end(res.statusCode+ ' ' +res.statusMessage)

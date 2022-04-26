@@ -233,7 +233,7 @@ seelisten2.addEventListener("submit", seeHealth)
 
 async function seeHealth() {
     if (document.getElementById("addForm").className === "active") {
-        
+        document.getElementById("seelist").setAttribute("class", "hidden")
         const username = document.getElementById("accountUsername").innerText
         const options = {
             method: "POST",

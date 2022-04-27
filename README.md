@@ -61,12 +61,104 @@ Connection: keep-alive
 Keep-Alive: timeout=5
 ```
 
-### /app/flip/ (GET)
+### /app/users/addhealth (POST)
 
 #### Request cURL
 
 ```
+curl http://localhost:5000/app/users/addhealth
+```
 
+#### Response body
+
+```
+New user input:
+{"status": "Health info added."}
+
+Established user update:
+{"status": "Health info updated successfully."}
+```
+
+#### Response headers
+
+```
+
+```
+
+### /app/users/seehealth/ (POST)
+
+#### Request cURL
+
+```
+curl http://localhost:5000/app/users/seehealth
+```
+
+#### Response body
+
+```
+Invalid username:
+{"status": "invalid"}
+
+Valid username:
+{"status":"valid", "age": row.age, "height": row.height, "weight": row.weight, "bloodPressure": row.bloodPressure, "bfi": row.bfi, "mood": row.mood, "stress": row.stress, "exercise": row.exercise, "sleep": row.sleep, "goals": row.goals }
+```
+
+#### Response headers
+
+```
+
+```
+
+### /app/users/login/ (POST)
+
+#### Request cURL
+
+```
+curl http://localhost:5000/app/users/login/
+```
+
+#### Response body
+
+```
+Invalid username or password:
+{"status": "invalid", "email": ""}
+
+Valid username and password:
+{"status": "valid", "email": row.email}
+```
+
+#### Response headers
+
+```
+
+```
+
+### /app/users/signup/ (POST)
+
+#### Request cURL
+
+```
+curl http://localhost:5000/app/users/signup/
+```
+
+#### Response body
+
+```
+{"emailstatus": emailstatus, "userstatus": userstatus}
+```
+
+#### Response headers
+
+```
+
+```
+
+### /app/users/delete/ (POST)
+
+#### Request cURL
+
+```
+curl http://localhost:5000/app/users/delete/
 ```
 
 #### Response body
@@ -81,52 +173,12 @@ Keep-Alive: timeout=5
 
 ```
 
-### /app/flips/:number/ (GET)
+### /app/log/access/ (GET)
 
 #### Request cURL
 
 ```
-
-```
-
-#### Response body
-
-```
-
-```
-
-#### Response headers
-
-```
-
-```
-
-### /app/flip/coin/ (GET)
-
-#### Request cURL
-
-```
-
-```
-
-#### Response body
-
-```
-
-```
-
-#### Response headers
-
-```
-
-```
-
-### /app/flip/call/:guess/ (GET)
-
-#### Request cURL
-
-```
-
+curl http://localhost:5000/app/log/access/
 ```
 
 #### Response body

@@ -1,6 +1,2 @@
-move enpoints to routes
-
-
-Remove update health tab and make add add or update
-
-2. Add div where uses can add health info to health db only availible if signed in.
+add foreign key
+remove from health db on delete account

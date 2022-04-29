@@ -1,12 +1,19 @@
 const { coinFlip, coinFlips, countFlips, flipACoin } = require('./modules/coin.js');
+// Require express
 const express = require("express")
+// Define app using express
 const app = express()
+// Make Express use its own built-in body parser
+// Allow urlencoded body messages
+// Allow json body messages
 app.use(express.json())
 app.use(express.static('./public'));
-
+// Require morgan
 const morgan = require('morgan')
+// Require fs
 const fs = require('fs')
 
+// Require database SCRIPT file
 //const logdb = require('./src/services/logdatabase.js')
 const db = require('./src/services/userdatabase.js')
 //const healthdb = require('./src/services/healthdatabase.js')
@@ -16,8 +23,11 @@ const args = require("minimist")(process.argv.slice(2))
 const log = args.log || "true"
 const help = args.help
 const debug = args.debug
+// Server port
 const port = args.port || 5555
 
+// Store help text
+// If --help, echo help text and exit
 if (help === true) {
     console.log(`server.js [options]
 
@@ -37,6 +47,7 @@ if (help === true) {
     
 }
 
+// If --log=trye then create a log file
 if(log === "true"){
     
     const logdir = './log/';
@@ -44,7 +55,9 @@ if(log === "true"){
     if (!fs.existsSync(logdir)){
         fs.mkdirSync(logdir);
     }
+    // Create a write stream to append to an access.log file
     const WRITESTREAM  = fs.createWriteStream(logdir+'access.log', { flags: 'a' })
+    // Set up the access logging middleware
     app.use(morgan('combined', { stream: WRITESTREAM }))
 }
 
@@ -52,6 +65,7 @@ const server = app.listen(port, () => {
     console.log('App is running on port %PORT%'.replace('%PORT%', port))
 })
 
+// Always log to database
 app.use( (req, res, next) => {
     let logdata = {
         remoteaddr: req.ip,
@@ -74,6 +88,7 @@ app.use( (req, res, next) => {
         String(logdata.status), String(logdata.referer), String(logdata.useragent))
     next()
 })
+
 
 if (debug) {
     app.get("/app/log/access", (req, res) => {	
@@ -170,17 +185,20 @@ app.post('/app/flip/call/', (req, res, next) => {
     res.status(200).json(flipACoin(req.body.call))
 })
 
+// READ (HTTP method GET) at root endpoint /app/
 app.get('/app/', (req, res) => {
     res.statusMessage = 'OK';
     res.writeHead( res.statusCode, { 'Content-Type' : 'text/plain' });
     res.end(res.statusCode+ ' ' +res.statusMessage)
 })
 
+// Default API endpoint that returns 404 Not found for any endpoints that are not defined.
 app.use(function(req, res) {
     res.status(404).send("404 NOT FOUND")
     res.type("text/plain")
 })
 
+// Tell STDOUT that the server is stopped
 process.on('SIGTERM', () => {
     server.close(() => {
         console.log('Server closed')

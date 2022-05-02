@@ -8,7 +8,10 @@ Our website basically has two main function:
 
 # Health Tracker Installation
 
-Run `npm install` inside the package root directory.
+Run the command below to install the modules needed.
+```
+npm install
+```
 
 This package was buid using Node.js LTS (16.x). You can download the Node.js on your computer [through this link](https://nodejs.org/en/).
 Other package dependency and version information can be found in `package.json`.

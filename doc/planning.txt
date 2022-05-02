@@ -1,0 +1,35 @@
+Website : Personal health tracking app 
+
+Components: 
+    What we need: 
+        Way to input your own data (i.e survey, form, etc.)
+        Way to see data inputted 
+        Register an account, delete an account 
+        Database of user interaction (log-ins, access logs, etc.)
+        License documentation
+        README file/Documentation of both planning and actual website (this included)
+        User instructions - How to use
+        A basic template/design for the website
+            Minimalistic styles
+                1 page for welcome
+                1 page for list of modules
+                1 page for each module, or expansion
+
+    Specific buttons/endpoints 
+        Basic health info page - Displays all inputted data 
+        Sleep tracker?
+            Survey-style 
+        Sickness tracker 
+        Mental health tracker 
+        Can provide information/links for each thing 
+        Print out inputted data
+        Able to look back at previous data
+
+    Each endpoint: 
+        User login/registration?
+
+Home Page :
+    Welcome to health tracker 
+    Give info on what the site is used for, how to use
+View Data Page:
+    User will be able to see the data they input on the health tracker page 

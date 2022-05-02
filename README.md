@@ -39,6 +39,16 @@ Open the Google Chrome browser on your local computer and type the base URL `loc
 # API Endpoint Documentation
 All API Documentation is located under the `/docs` directory.
 
+# Dependencies
+```
+"better-sqlite3": "^7.5.1",
+"express": "^4.18.1",
+"minimist": "^1.2.6",
+"morgan": "^1.10.0",
+"node": "^17.7.2",
+"nodemon": "^2.0.15"
+```
+
 # Coinserver Runtime Documentation
 ## --help
 If your `server.js` script is run with the option `--help`, it should echo ONLY the following help message to STDOUT and then exit 0.
@@ -57,14 +67,4 @@ node server.js [options]
             Logs are always written to database.
 
 --help, -h	Return this message and exit.
-```
-
-# Dependencies
-```
-    "better-sqlite3": "^7.5.1",
-    "express": "^4.18.1",
-    "minimist": "^1.2.6",
-    "morgan": "^1.10.0",
-    "node": "^17.7.2",
-    "nodemon": "^2.0.15"
 ```

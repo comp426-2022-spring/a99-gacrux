@@ -35,6 +35,10 @@ App is running on port 5000
 
 ```
 Open the Google Chrome browser on your local computer and type the base URL `localhost:5000` to connect to the server. You will see the home page of our website. On the top right corner, users can choose to log in with the existing account or sign up for a new account (Personal Health Info is only available after the user log in to their account). After logging in to the account, people can save their own health information or update their old records. They can also use the `Recourses` tab to get access to important health tips.
+
+# API Endpoint Documentation
+All API Documentation is located under the `/docs` directory.
+
 # Coinserver Runtime Documentation
 ## --help
 If your `server.js` script is run with the option `--help`, it should echo ONLY the following help message to STDOUT and then exit 0.
@@ -54,3 +58,13 @@ node server.js [options]
 
 --help, -h	Return this message and exit.
 ```
+
+# Dependencies
+`
+    "better-sqlite3": "^7.5.1",
+    "express": "^4.18.1",
+    "minimist": "^1.2.6",
+    "morgan": "^1.10.0",
+    "node": "^17.7.2",
+    "nodemon": "^2.0.15"
+`

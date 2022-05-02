@@ -1,8 +1,9 @@
-# Health Tracker Description
+# Health Tracker Website Instruction
 
-This package allows you to track your mental and physical health, and provides some resources that may help in imporivng your health. 
+Our website aims to track our users' mental and physical health. After signing up, people can get access to the account and health information they provide to our database and get access some valuable resources that may help in imporivng their health. 
 
-1. Tracker - Input and/or update health data. 
+Our website basically has two main function:
+1. Tracker - Input and/or update users' health data. 
 2. Resources - View resources that may help imporive your health! 
 
 # Health Tracker Installation
@@ -12,7 +13,26 @@ Run `npm install` inside the package root directory.
 This package was buid using Node.js LTS (16.x).
 Other package dependency and version information can be found in `package.json`.
 
+# Start The Server
+Run `npm test` to start the server run at port 5000.
+You will see the below messages printed in the terminal:
+```
+> a99-gacrux@0.5.0 test
+> npx nodemon index.js --port=5000 --debug
+
+[nodemon] 2.0.15
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node index.js --port=5000 --debug`
+User database table exists.
+Health database table exists.
+Log database table exists.
+App is running on port 5000
+
+```
 # Coinserver Runtime Documentation
+If your `server.js` script is run with the option `--help`, it should echo ONLY the following help message to STDOUT and then exit 0.
 ```
 node server.js [options]
 
@@ -29,9 +49,6 @@ node server.js [options]
 
 --help, -h	Return this message and exit.
 ```
-
-# Coinserver API Documentation
-
 ## Endpoints
 
 ### /app/ (GET)

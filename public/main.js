@@ -34,6 +34,7 @@ function focusDiv(id) {
 const login = document.getElementById("loginForm")
 login.addEventListener("submit", sendLogin)
 
+// Set up an asynchronous function so that it will await a response.
 async function sendLogin(event) {
     event.preventDefault();
     const formEvent = event.currentTarget
@@ -50,6 +51,7 @@ async function sendLogin(event) {
             },
             body: formDataJson
         };
+        // This sends a GET request to the API endpoint and waits for a response
         const response = await fetch(window.location.origin+"/app/users/login/", options);
         const result = await response.json()
         if (result.status === "invalid") {
@@ -80,6 +82,7 @@ async function sendLogin(event) {
 const signup = document.getElementById("signupForm")
 signup.addEventListener("submit", sendSignup)
 
+// Set up an asynchronous function so that it will await a response.
 async function sendSignup(event) {
     event.preventDefault();
     const formEvent = event.currentTarget
@@ -88,6 +91,7 @@ async function sendSignup(event) {
         const plainFormData = Object.fromEntries(formData.entries());
         const formDataJson = JSON.stringify(plainFormData);
         console.log(formDataJson)
+        // Set up the request object for fetch()
         const options = {
             method: "POST",
             headers: {
@@ -101,6 +105,7 @@ async function sendSignup(event) {
             passError.setAttribute("class", "active")
             passError.innerHTML = "Passwords do not match. Try again."
         } else {
+            // This sends a GET request to the API endpoint and waits for a response
             const response = await fetch(window.location.origin+"/app/users/signup/", options);
             const result = await response.json()
             if (result.emailstatus === "invalid") {
@@ -158,6 +163,7 @@ function signOut() {
 const deleteAcc = document.getElementById("deleteAccount")
 deleteAcc.addEventListener("click", function() { deleteAccount(); })
 
+// Set up an asynchronous function so that it will await a response.
 async function deleteAccount() {
     try {
         var username = document.getElementById("accountUsername").innerText
@@ -198,6 +204,7 @@ async function deleteAccount() {
 const addlisten = document.getElementById("addForm")
 addlisten.addEventListener("submit", addHealth)
 
+// Set up an asynchronous function so that it will await a response.
 async function addHealth(event) {
     event.preventDefault();
     const formEvent = event.currentTarget
@@ -231,6 +238,7 @@ seelisten1.addEventListener("click", seeHealth)
 const seelisten2 = document.getElementById("addForm")
 seelisten2.addEventListener("submit", seeHealth)
 
+// Set up an asynchronous function so that it will await a response.
 async function seeHealth() {
     if (document.getElementById("addForm").className === "active") {
         document.getElementById("seelist").setAttribute("class", "hidden")

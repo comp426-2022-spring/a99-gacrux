@@ -1,6 +1,6 @@
 # Health Tracker Website Instruction
 
-Our website aims to track our users' mental and physical health. After signing up, people can get access to the account and health information they provide to our database and get access some valuable resources that may help in imporivng their health. 
+Our website aims to track our users' mental and physical health. After signing up, people can get access to the account and health information they provide to our database and get access some valuable resources that may help in improivng their health. 
 
 Our website basically has two main function:
 1. Tracker - Input and/or update users' health data. 

@@ -89,7 +89,7 @@ app.use( (req, res, next) => {
     next()
 })
 
-
+// Endpoint /app/log/access that returns JSON status message or return error to the user.
 if (debug) {
     app.get("/app/log/access", (req, res) => {	
         try {
@@ -104,6 +104,7 @@ if (debug) {
     });
 }
 
+// Endpoint /app/users/addhealth/
 app.post("/app/users/addhealth/", (req, res, next) => {	
     const stmt = db.prepare(`SELECT * FROM health WHERE username=?`)
     let row = stmt.get(String(req.body.username));
@@ -119,6 +120,7 @@ app.post("/app/users/addhealth/", (req, res, next) => {
     }
 });
 
+// Endpoint /app/users/seehealth/
 app.post("/app/users/seehealth/", (req, res, next) => {	
     const stmt = db.prepare(`SELECT * FROM health WHERE username=?`)
     let row = stmt.get(String(req.body.username));
@@ -130,7 +132,7 @@ app.post("/app/users/seehealth/", (req, res, next) => {
     }
 });
 
-
+// Endpoint /app/users/login/
 app.post("/app/users/login/", (req, res, next) => {	
     const stmt = db.prepare(`SELECT * FROM myUsers WHERE username=? AND password=?`)
     let row = stmt.get(String(req.body.username), String(req.body.password));
@@ -141,7 +143,7 @@ app.post("/app/users/login/", (req, res, next) => {
     }
 });
 
-
+// Endpoint /app/users/signup/
 app.post("/app/users/signup/", (req, res, next) => {	
     const stmt = db.prepare(`SELECT * FROM myUsers WHERE username=?`)
     let userrow = stmt.get(String(req.body.username));
@@ -160,6 +162,7 @@ app.post("/app/users/signup/", (req, res, next) => {
     res.status(200).json({"emailstatus": emailstatus, "userstatus": userstatus})
 });
 
+// Endpoint /app/users/delete/
 app.post("/app/users/delete/", (req, res, next) => {	
     const stmt = db.prepare(`DELETE FROM health WHERE username=?;`)
     const stmt2 = db.prepare(`DELETE FROM myUsers WHERE username=?;`)
@@ -170,17 +173,19 @@ app.post("/app/users/delete/", (req, res, next) => {
     res.end(res.statusCode+ ' ' +res.statusMessage)
 });
 
-
+// Endpoint /app/flip/
 app.get('/app/flip/', (req, res) => {
     res.status(200).json({"flip": coinFlip()})
 })
 
+// Endpoint /app/flips/coins
 app.post('/app/flips/coins/', (req, res, next) => {
     const result = coinFlips(parseInt(req.body.number))
     const count = countFlips(result)
     res.status(200).json({"raw": result, "summary": count})
 })
 
+// Endpoint /app/flip/call/
 app.post('/app/flip/call/', (req, res, next) => {
     res.status(200).json(flipACoin(req.body.call))
 })

@@ -7,7 +7,7 @@ Our website basically has two main function:
 2. Resources - View resources that may help imporive your health! 
 
 # Health Tracker Installation
-
+Use HTTPS link to clone our repository on your local computer.
 Run the command below to install the modules needed.
 ```
 npm install

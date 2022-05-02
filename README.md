@@ -31,7 +31,9 @@ Log database table exists.
 App is running on port 5000
 
 ```
+Open the Google Chrome browser on your local computer and type the base URL `localhost:5000` to connect to the server. You will see the home page of our website. On the top right cornor, users can choose to log in with the exist account or sign up a new account (Personal Health Info only availiable after the user log in to their account). After logging in the account, people can save their own health information or update the old records. They can also use the `Recourses` tab to get access important health tips.
 # Coinserver Runtime Documentation
+## --help
 If your `server.js` script is run with the option `--help`, it should echo ONLY the following help message to STDOUT and then exit 0.
 ```
 node server.js [options]

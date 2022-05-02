@@ -60,11 +60,11 @@ node server.js [options]
 ```
 
 # Dependencies
-`
+```
     "better-sqlite3": "^7.5.1",
     "express": "^4.18.1",
     "minimist": "^1.2.6",
     "morgan": "^1.10.0",
     "node": "^17.7.2",
     "nodemon": "^2.0.15"
-`
+```
